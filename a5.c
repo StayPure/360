@@ -71,11 +71,11 @@ ripple-carry adder, and look-ahead adder. Afterwards the result
 is printed with printresult() */
 void doadders(int a, int b, int c)
 {
-   void printresult(char *label, int a);
-   void halfaddr(int a, int b, int *sum, int *outcary);
    void fulladdr(int a, int b, int incary, int *sum, int *outcary);
-   void rcadd4(int a, int b, int incary, int *sum, int *outcary);
+   void halfaddr(int a, int b, int *sum, int *outcary);
    void lacadd4(int a, int b, int incary, int *sum, int *outcary);
+   void printresult(char *label, int a);
+   void rcadd4(int a, int b, int incary, int *sum, int *outcary);
    int sum, outcary, *s = &sum, *o = &outcary;
 
    printf("%s\n", "halfadder:");
@@ -101,13 +101,13 @@ odd parity 4-bit check, modulus of a 4-bit number, multiplexer 2x1 and 4x1.
 Afterwards the result is printed with printresult() */
 void doextraops(int a, int b)
 {
-   void printresult(char *label, int a);
+   int ans, *ptrans = &ans;
    void evenparity3gen(int a, int *paritybit);
-   void oddparity4chk(int a, int *checkbit);
    void modulus4bit(int a, int *rslt);
    void mux2by1(int a, int b, int *yout);
    void mux4by1(int a, int b, int *yout);
-   int ans, *ptrans = &ans;
+   void oddparity4chk(int a, int *checkbit);
+   void printresult(char *label, int a);
 
    evenparity3gen(a, ptrans);
    printf("%s\n", "evenparity3gen:"); printresult("paritybit:", ans); putchar('\n');
@@ -165,22 +165,25 @@ void rcadd4(int a, int b, int incary, int *sum, int *outcary)
 
 
 /* Simulates a look ahead carry adder. This method uses boolean algebra and bitwise ops in order
-  to generate all the incarries for each full adder. Once each incarry is generated we apply each 
+  to generate all the incarries for each full adder. Once each incarry is generated we apply each
   to it's specific full adder. */
 void lacadd4(int a, int b, int incary, int *sum, int *outcary)
 {
-   int c1 = ((a & 1) & (b & 1)) | (((a & 1) | (b & 1)) & (incary & 1));
-   int c2 = (((a >> 1) & 1) & ((b >> 1) & 1)) | ((((a >> 1) & 1) | ((b >> 1) & 1)) & c1);
-   int c3 = (((a >> 1) & 1) & ((b >> 1) & 1)) | ((((a >> 1) & 1) | ((b >> 1) & 1)) & c2);
-   *outcary = (((a >> 1) & 1) & ((b >> 1) & 1)) | ((((a >> 1) & 1) | ((b >> 1) & 1)) & c3);
+   int a1 = (a & 1), a2 = (a >> 1) & 1, a3 = (a >> 2) & 1, a4 = (a >> 3) & 1;
+   int b1 = (b & 1), b2 = (b >> 1) & 1, b3 = (b >> 2) & 1, b4 = (b >> 3) & 1;
+
+   int c1 = (a1 & b1) | ((a1 ^ b1) & incary);
+   int c2 = (a2 & b2) | ((a2 ^ b2) & c1);
+   int c3 = (a3 & b3) | ((a3 ^ b3) & c2);
+   *outcary = (a4 & b4) | ((a4 ^ b4) & c3);
 
    int sum1, sum2, sum3, sum4;
    int *s1 = &sum1, *s2 = &sum2, *s3 = &sum3, *s4 = &sum4;
 
-   fulladdr(a, b, incary, s1, outcary);
-   fulladdr(a>>1, b>>1, c1, s2, outcary);
-   fulladdr(a>>2, b>>2, c2, s3, outcary);
-   fulladdr(a>>3, b>>3, c3, s4, outcary);
+   fulladdr(a1, b1, incary, s1, outcary);
+   fulladdr(a2, b2, c1, s2, outcary);
+   fulladdr(a3, b3, c2, s3, outcary);
+   fulladdr(a4, b4, c3, s4, outcary);
    *sum = (sum4 << 3) | (sum3 << 2) | (sum2 << 1) | sum1;
 }
 
