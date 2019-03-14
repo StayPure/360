@@ -108,6 +108,10 @@ int isvalid(char *path, char *dst)
 }
 
 
+/* Design a module that takes the arguments and copies the files
+to the designated destination directory if it is a valid file.
+
+*/
 int copyfiles (int argc, char *argv[])
 {
    void buildpath (char *src, char *dst, char **dstpath);
