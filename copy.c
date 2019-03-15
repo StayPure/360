@@ -9,7 +9,7 @@
 	should only handle regular files coming from the specified source paths. The file paths will be
 	entered through command line arguments. The program should give the  usage of the program when the
 	incorrect number of arguments are given (< 2), end before anything if the destination is invalid,
-	and only copy files that are regular files and if they aren't  stop the copy and give the reason for
+	and only copy files that are regular files and if they aren't stop the copy and give the reason for
 	not doing the copy.
 
 	Solution: The program was broken into two main parts, one part checks if given paths are valid or
@@ -73,8 +73,8 @@ int main (int argc, char *argv[])
 
 /* Design a module that prints out the correct way to use the
    program using the progname to get the name of the program
-   ending the program afterwards.
-   Takes progname and print out the correct usage of the progam
+   ending the program afterward.
+   Takes progname and print out the correct usage of the program
    to stderr then exits the program with a failure.
    Called by main().
 */
@@ -84,7 +84,7 @@ void usage (char *progname)
 }
 
 
-/* Design a module that kills the progam when for a given reason
+/* Design a module that kills the program when for a given reason
    printing the reason for the bailout before exiting.
    Takes reason and prints out the reason for the bailout to stderr
    then exits the program with a failure.
@@ -102,8 +102,10 @@ void die (char *reason)
    error message will be printed out on failure.
    Takes a single pointer, *argv, and passes it to isdir()
    to check if the directory exists. If isdir returns a 1 a
-   1 is returned from this module. Otherwise an error message
+   1 is returned from this module. Otherwise, an error message
    is printed and a 0 is returned.
+   Calls isdir().
+   Called by main().
 */
 int chkdst (char **argv)
 {
@@ -123,6 +125,7 @@ int chkdst (char **argv)
    write it to sbuf. Uses S_ISDIR() on sbuf.st_mode to see
    the mode of the file. A 1 is returned if the file is a
    directory otherwise a 0 is returned.
+   Called by isvalid().
 */
 int isdir (char *path)
 {
@@ -139,6 +142,7 @@ int isdir (char *path)
    write it to sbuf. Uses S_ISREG on sbuf.st_mode to see if
    the file is regular. A 1 is returned if the S_ISREG is true
    otherwise a 0 is returned.
+   Called by isvalid().
 */
 int isregular (char *path)
 {
