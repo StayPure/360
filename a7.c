@@ -1,3 +1,10 @@
+/*
+	Name: Kevin C. Bell, Nicholas J. Bravata, Thomas J. Jury        Class: CPS 360
+        Section: 22362460                                               Assignment: 07
+        Due: March 21, 2019                                          Started: March 19, 2019
+        Credit: 10 points.
+        KEVIN CONT.
+*/        
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -15,17 +22,13 @@ int main(int argc, char *argv[])
    if(argc < 2)
    {
       void usage(char *progname); 
-      char str[] = "a7", *strptr = str; 
-      usage(strptr); 
+      usage("a7"); 
    }
-
    size = strtol(argv[1], &blkptr, 10);
-
    if ((size & 7) != 0) {fprintf(stderr, "ERROR: BLOCKSIZE MUST BE A MULTIPLE OF 8.\n"); exit(1);}
    else if (*blkptr != '\0') {fprintf(stderr, "ERROR: BLOCKSIZE MUST BE A NUMBER.\n"); exit(1);}
 
-   if (size <= 0) {void usage(char *progname); char str[] = "a7", *strptr = str; usage(strptr); } 
-      
+   if (size <= 0) {void usage(char *progname); usage("a7"); } 
    if(!(blkptr = getmemblock(size))) {fprintf(stderr, "Memory Allocation Fail\n"); exit(1);}
 
    srand(1);
@@ -33,18 +36,21 @@ int main(int argc, char *argv[])
    loadhalfwdata(blkptr, size); halfwsum = sumhalfwdata(blkptr, size);
    loadworddata(blkptr, size); wordsum = sumworddata(blkptr, size);
    loaddoublewdata(blkptr, size); doublewsum = sumdoublewdata(blkptr, size);
-
    printresult(bytesum, halfwsum, wordsum, doublewsum);
     
    free(blkptr);
    exit(0);   
 }
 
+/* THOMAS
+*/
 void usage (char *progname)
 {
    fprintf(stderr, "./%s <blocksize>\n", progname); exit(1);
 }
 
+/* THOMAS
+*/
 char *getmemblock (int size)
 {
    char *str;
@@ -52,6 +58,8 @@ char *getmemblock (int size)
    return str;
 }
 
+/* NICK
+*/
 void loadbytedata (char mem[], int size)
 {
    int i;
@@ -62,6 +70,8 @@ void loadbytedata (char mem[], int size)
    return;
 }
 
+/* NICK
+*/
 void loadhalfwdata (char mem[], int size)
 {
    int i;
@@ -72,6 +82,8 @@ void loadhalfwdata (char mem[], int size)
    return; 
 }
 
+/* KEVIN
+*/
 void loadworddata (char mem[], int size)
 {
    int i;
@@ -82,6 +94,8 @@ void loadworddata (char mem[], int size)
    return; 
 }
 
+/* KEVIN
+*/
 void loaddoublewdata (char mem[], int size)
 {
    int i; 
@@ -92,6 +106,8 @@ void loaddoublewdata (char mem[], int size)
    return;
 }
 
+/* NICK
+*/
 long long sumbytedata (char mem[], int size)
 {
    long long sum = 0; 
@@ -103,6 +119,8 @@ long long sumbytedata (char mem[], int size)
    return sum;
 }
 
+/* NICK
+*/
 long long sumhalfwdata (char mem[], int size)
 {
    long long sum = 0;
@@ -113,7 +131,9 @@ long long sumhalfwdata (char mem[], int size)
    }
    return sum;
 }
-
+ 
+/* KEVIN
+*/
 long long sumworddata (char mem[], int size)
 {
    long long sum = 0;
@@ -125,6 +145,8 @@ long long sumworddata (char mem[], int size)
    return sum;
 }
 
+/* KEVIN
+*/
 long long sumdoublewdata(char mem[], int size)
 {
    long long sum = 0;
@@ -136,6 +158,8 @@ long long sumdoublewdata(char mem[], int size)
    return sum;
 }
 
+/* THOMAS
+*/
 void printresult(long long bytesum, long long hwsum, long long wordsum, long long dwsum)
 {
     fprintf(stderr, "\n%-20s : %-10lld\n", "Sum of bytes", bytesum);
