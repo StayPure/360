@@ -4,17 +4,12 @@
 int main(int argc, char *argv[])
 {
    char *blkptr;
-   long long bytesum, doublewsum, halfwsum, wordsum;
-   int size;
+   long long bytesum, doublewsum, halfwsum, wordsum; int size;
    char *getmemblock(int size);
-   void loadbytedata(char mem[], int size);
-   void loadhalfwdata(char mem[], int size);
-   void loadworddata(char mem[], int size);
-   void loaddoublewdata(char mem[], int size);
-   long long sumbytedata(char mem[], int size);
-   long long sumhalfwdata(char mem[], int size);
-   long long sumworddata(char mem[], int size);
-   long long sumdoublewdata(char mem[], int size);
+   void loadbytedata(char mem[], int size); void loadhalfwdata(char mem[], int size);
+   void loadworddata(char mem[], int size); void loaddoublewdata(char mem[], int size);
+   long long sumbytedata(char mem[], int size); long long sumhalfwdata(char mem[], int size);
+   long long sumworddata(char mem[], int size); long long sumdoublewdata(char mem[], int size);
    void printresult(long long bytesum, long long hwsum, long long wordsum, long long dwsum);
 
    if(argc < 2)
@@ -23,29 +18,26 @@ int main(int argc, char *argv[])
       char str[] = "a7", *strptr = str; 
       usage(strptr); 
    }
+
    size = strtol(argv[1], &blkptr, 10);
-   if ((size & 7) != 0){ fprintf(stderr, "ERROR: BLOCKSIZE MUST BE A MULTIPLE OF 8.\n"); exit(1);}
+
+   if ((size & 7) != 0) {fprintf(stderr, "ERROR: BLOCKSIZE MUST BE A MULTIPLE OF 8.\n"); exit(1);}
    else if (*blkptr != '\0') {fprintf(stderr, "ERROR: BLOCKSIZE MUST BE A NUMBER.\n"); exit(1);}
-  
-   
+
    if (size <= 0) {void usage(char *progname); char str[] = "a7", *strptr = str; usage(strptr); } 
       
-    blkptr = getmemblock(size);
-    if(!blkptr) {fprintf(stderr, "Memory Allocation Fail\n"); exit(1);}
-    srand(1);
-    loadbytedata(blkptr, size);
-    bytesum = sumbytedata(blkptr, size);
-    loadhalfwdata(blkptr, size);
-    halfwsum = sumhalfwdata(blkptr, size);
-    loadworddata(blkptr, size);
-    wordsum = sumworddata(blkptr, size);
-    loaddoublewdata(blkptr, size);
-    doublewsum = sumdoublewdata(blkptr, size);
+   if(!(blkptr = getmemblock(size))) {fprintf(stderr, "Memory Allocation Fail\n"); exit(1);}
 
-    printresult(bytesum, halfwsum, wordsum, doublewsum);
+   srand(1);
+   loadbytedata(blkptr, size); bytesum = sumbytedata(blkptr, size);
+   loadhalfwdata(blkptr, size); halfwsum = sumhalfwdata(blkptr, size);
+   loadworddata(blkptr, size); wordsum = sumworddata(blkptr, size);
+   loaddoublewdata(blkptr, size); doublewsum = sumdoublewdata(blkptr, size);
+
+   printresult(bytesum, halfwsum, wordsum, doublewsum);
     
-    free(blkptr);
-    exit(0);   
+   free(blkptr);
+   exit(0);   
 }
 
 void usage (char *progname)
@@ -63,13 +55,11 @@ char *getmemblock (int size)
 
 void loadbytedata (char mem[], int size)
 {
-   int a, i;
-   /*a = rand();*/
+   int i;
 
    for (i = 0; i < size; i++)
    {
-        a = rand();
-        *((char *) & mem[0] + i) = a & 0x7F;   
+      *((char *) & mem[i]) = rand() & 0x7F; 
    }
 
    return;
@@ -78,9 +68,9 @@ void loadbytedata (char mem[], int size)
 void loadhalfwdata (char mem[], int size)
 {
    int i;
-   for (i = 0; i < (size >> 1); i++)
+   for (i = 0; i < size; i += 2)
    {
-        *((unsigned short int *) & mem[0] + i) = rand() & 0x7FFF;   
+      *((short int *) & mem[i]) = rand() & 0x7FFF;    
    }
 
    return; 
@@ -89,9 +79,9 @@ void loadhalfwdata (char mem[], int size)
 void loadworddata (char mem[], int size)
 {
    int a, i;
-   for (i = 0; i < (size >> 2); i++)
+   for (i = 0; i < size; i += 4)
    {    a = rand();
-        *((int *) & mem[0] + i) = a & 0x7FFFFFFF;   
+        *((int *) & mem[i]) = a & 0x7FFFFFFF;   
    }
 
    return; 
@@ -106,9 +96,9 @@ void loaddoublewdata (char mem[], int size)
    r = (long long) a;
    r = (r << 31) | b;
  
-   for (i = 0; i < size >> 3; i++)
+   for (i = 0; i < size; i += 8)
    {
-        *((long long *) & mem[0] + i) = (((long long) rand() << 31) &  0x7FFFFFFF)| rand();   
+        *((long long *) & mem[i]) = ((long long) rand() << 31) | rand();   
    }
 
    return;
@@ -116,50 +106,52 @@ void loaddoublewdata (char mem[], int size)
 
 long long sumbytedata (char mem[], int size)
 {
-    int sum = 0, i;
+    long long sum = 0, i;
     for (i = 0; i < size; i++)
     {
-        sum += *((char *) & mem[0] + i);   
+        sum += *((char *) & mem[i]);   
     }
     return sum;
 }
 
 long long sumhalfwdata (char mem[], int size)
 {
-    int sum = 0, i;
-    for (i = 0; i < size >> 1; i++)
+    long long sum = 0;
+    int i;
+    for (i = 0; i < size; i += 2)
     {
-        sum += *(short *) & mem[0] + 1;   
+        sum += *((short int*) & mem[i]);   
     }
     return sum;
 }
 
 long long sumworddata (char mem[], int size)
 {
-    int sum = 0, i;
-    for (i = 0; i < size >> 2; i++)
+    long long sum = 0, i;
+    for (i = 0; i < size >> 2; i += 4)
     {
-        sum += *(int *) & mem[0] + i;   
+        sum += *(int *) & mem[i];   
     }
     return sum;
 }
 
 long long sumdoublewdata(char mem[], int size)
 {
-    int sum = 0, i;
-    for (i = 0; i < size >> 3; i++)
+    long long sum = 0;
+    int i;
+    for (i = 0; i < size >> 3; i += 8)
     {
-        sum += *(long long *) & mem[0] + i;   
+        sum += *(long long *) & mem[i];   
     }
     return sum;
 }
 
 void printresult(long long bytesum, long long hwsum, long long wordsum, long long dwsum)
 {
-    printf("\n\nSum of bytes: %-25lld\n", bytesum);
-    printf("\n\nSum of half-words: %11lld\n", hwsum);
-    printf("\n\nSum of words: %11lld\n", wordsum);
-    printf("\n\nSum of double-words: %11lld\n\n", dwsum);
+    fprintf(stderr, "\n\n%-20s : %-10lld\n", "Sum of bytes", bytesum);
+    fprintf(stderr, "\n\n%-20s : %-10lld\n", "Sum of half-words", hwsum);
+    fprintf(stderr, "\n\n%-20s : %-10lld\n", "Sum of words", wordsum);
+    fprintf(stderr, "\n\n%-20s : %-10lld\n\n","Sum of double-words", dwsum);
 
     return;
 }
