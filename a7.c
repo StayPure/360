@@ -98,7 +98,7 @@ long long sumbytedata (char mem[], int size)
    int i;
    for (i = 0; i < size; i++)
    {
-      sum += *((char *) & mem[i]);   
+      sum += *(char *) & mem[i];   
    }
    return sum;
 }
@@ -109,7 +109,7 @@ long long sumhalfwdata (char mem[], int size)
    int i;
    for (i = 0; i < size; i += 2)
    {
-      sum += *((short int*) & mem[i]);   
+      sum += *(short int*) & mem[i];   
    }
    return sum;
 }
