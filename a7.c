@@ -47,21 +47,18 @@ void usage (char *progname)
 
 char *getmemblock (int size)
 {
-    char *str; 
-
-    str = (char *) malloc(size);
-    return str;
+   char *str;
+   str = (char *) malloc(size);
+   return str;
 }
 
 void loadbytedata (char mem[], int size)
 {
    int i;
-
    for (i = 0; i < size; i++)
    {
       *((char *) & mem[i]) = rand() & 0x7F; 
    }
-
    return;
 }
 
@@ -72,86 +69,78 @@ void loadhalfwdata (char mem[], int size)
    {
       *((short int *) & mem[i]) = rand() & 0x7FFF;    
    }
-
    return; 
 }
 
 void loadworddata (char mem[], int size)
 {
-   int a, i;
+   int i;
    for (i = 0; i < size; i += 4)
-   {    a = rand();
-        *((int *) & mem[i]) = a & 0x7FFFFFFF;   
+   {    
+      *((int *) & mem[i]) = rand() & 0x7FFFFFFF;   
    }
-
    return; 
 }
 
 void loaddoublewdata (char mem[], int size)
 {
-   int a, b, i;
-   long long r;
-   a = rand();
-   b = rand();
-   r = (long long) a;
-   r = (r << 31) | b;
- 
+   int i; 
    for (i = 0; i < size; i += 8)
    {
-        *((long long *) & mem[i]) = ((long long) rand() << 31) | rand();   
+      *((long long *) & mem[i]) = ((long long) rand() << 31) | rand();   
    }
-
    return;
 }
 
 long long sumbytedata (char mem[], int size)
 {
-    long long sum = 0, i;
-    for (i = 0; i < size; i++)
-    {
-        sum += *((char *) & mem[i]);   
-    }
-    return sum;
+   long long sum = 0; 
+   int i;
+   for (i = 0; i < size; i++)
+   {
+      sum += *((char *) & mem[i]);   
+   }
+   return sum;
 }
 
 long long sumhalfwdata (char mem[], int size)
 {
-    long long sum = 0;
-    int i;
-    for (i = 0; i < size; i += 2)
-    {
-        sum += *((short int*) & mem[i]);   
-    }
-    return sum;
+   long long sum = 0;
+   int i;
+   for (i = 0; i < size; i += 2)
+   {
+      sum += *((short int*) & mem[i]);   
+   }
+   return sum;
 }
 
 long long sumworddata (char mem[], int size)
 {
-    long long sum = 0, i;
-    for (i = 0; i < size >> 2; i += 4)
-    {
-        sum += *(int *) & mem[i];   
-    }
-    return sum;
+   long long sum = 0;
+   int i;
+   for (i = 0; i < size; i += 4)
+   {
+      sum += *(int *) & mem[i];   
+   }
+   return sum;
 }
 
 long long sumdoublewdata(char mem[], int size)
 {
-    long long sum = 0;
-    int i;
-    for (i = 0; i < size >> 3; i += 8)
-    {
-        sum += *(long long *) & mem[i];   
-    }
-    return sum;
+   long long sum = 0;
+   int i;
+   for (i = 0; i < size; i += 8)
+   {
+      sum += *(long long *) & mem[i];   
+   }
+   return sum;
 }
 
 void printresult(long long bytesum, long long hwsum, long long wordsum, long long dwsum)
 {
-    fprintf(stderr, "\n\n%-20s : %-10lld\n", "Sum of bytes", bytesum);
-    fprintf(stderr, "\n\n%-20s : %-10lld\n", "Sum of half-words", hwsum);
-    fprintf(stderr, "\n\n%-20s : %-10lld\n", "Sum of words", wordsum);
-    fprintf(stderr, "\n\n%-20s : %-10lld\n\n","Sum of double-words", dwsum);
-
+    fprintf(stderr, "\n%-20s : %-10lld\n", "Sum of bytes", bytesum);
+    fprintf(stderr, "%-20s : %-10lld\n", "Sum of half-words", hwsum);
+    fprintf(stderr, "%-20s : %-10lld\n", "Sum of words", wordsum);
+    fprintf(stderr, "%-20s : %-10lld\n\n","Sum of double-words", dwsum);
     return;
 }
