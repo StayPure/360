@@ -84,12 +84,12 @@ int main(int argc, char *argv[])
 
 
 /* Design a module that prints out the directory and the program 
-name to the console and then proceeds to terminate the entire program. 
-This is a method where it will proceed to take the program name 
-and its directory and print it out to the console using the fprintf 
-command. After this is done it will proceed to terminate the program 
-using the exit(1). This will completely end the program and tell 
-you your directory. 
+   name to the console and then proceeds to terminate the entire program. 
+   This is a method where it will proceed to take the program name 
+   and its directory and print it out to the console using the fprintf 
+   command. After this is done it will proceed to terminate the program 
+   using the exit(1). This will completely end the program and tell 
+   you your directory. 
 */
 void usage (char *progname)
 {
@@ -98,12 +98,12 @@ void usage (char *progname)
 
 
 /* Design a module where the it allocates the bytes to a memory block 
-and proceeds return the pointer of the memory block. It is important 
-to make sure that the memory block cannot fail. 
-This is a method where it will proceed to check if the memory block can 
-store the data. If it is found to be true the memory block will store the
-data of the bytes and then proceed to return the pointer of the memory 
-block in order to send the required data back to the method that called. 
+   and proceeds return the pointer of the memory block. It is important 
+   to make sure that the memory block cannot fail. 
+   This is a method where it will proceed to check if the memory block can 
+   store the data. If it is found to be true the memory block will store the
+   data of the bytes and then proceed to return the pointer of the memory 
+   block in order to send the required data back to the method that called. 
 */
 char *getmemblock (int size)
 {
@@ -270,11 +270,11 @@ long long sumdoublewdata(char mem[], int size)
 }
 
 /*Design a module that prints out each sum of data for the following:
-bytes, half-words, words, and double-words to the console. 
-This is a method where it will proceed to acquire all the sums
-previously added up for: bytes, half-words, words, and double-words and 
-display them in the console. Upon doing calling each of the sums separately 
-and placing them on separate lines the code will finish. 
+  bytes, half-words, words, and double-words to the console. 
+  This is a method where it will proceed to acquire all the sums
+  previously added up for: bytes, half-words, words, and double-words and 
+  display them in the console. Upon doing calling each of the sums separately 
+  and placing them on separate lines the code will finish. 
 */
 void printresult(long long bytesum, long long hwsum, long long wordsum, long long dwsum)
 {
