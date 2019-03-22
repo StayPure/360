@@ -114,7 +114,11 @@ void loaddoublewdata (char mem[], int size)
    return;
 }
 
-/* NICK
+/* Design a module that returns the sum of all the byte data in a char array.
+   Using a long long sum to store the sum of the char array. This module uses a 
+   for loop to itterate through the character array and uses a *(char*) to get the 
+   value of each byte and then adds it to the sum. Once the entire array has been 
+   processed the sum is returned.
 */
 long long sumbytedata (char mem[], int size)
 {
@@ -127,7 +131,11 @@ long long sumbytedata (char mem[], int size)
    return sum;
 }
 
-/* NICK
+/* Design a module that returns the sum of all the halfword data in a char array.
+   Using a long long sum to store the sum of the char array. This module uses a 
+   for loop to itterate through the character array and uses a *(short in*) to get the 
+   value of each halfword and then adds it to the sum. Once the entire array has been 
+   processed the sum is returned.
 */
 long long sumhalfwdata (char mem[], int size)
 {
