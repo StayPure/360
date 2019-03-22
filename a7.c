@@ -58,7 +58,11 @@ char *getmemblock (int size)
    return str;
 }
 
-/* NICK
+/* Design a module that takes in a char array and the size of that array then fills that array with
+   7-bit, size int values, that uses a random number generator.
+   Itterating through the array using a *(char *) to set the value using a random number generated in
+   the for loop. Then using the bit-wise operator '&' with 0x7F in order to change the first bit to a 0.
+   This continues until we go through the size of the array.
 */
 void loadbytedata (char mem[], int size)
 {
@@ -70,7 +74,11 @@ void loadbytedata (char mem[], int size)
    return;
 }
 
-/* NICK
+/* Design a module that takes in a char array and the size of that array then fills that array with
+   15-bit, size/2 int values, that uses a random number generator.
+   Itterating through the array using a *(short in *) to set the value using a random number generated in
+   the for loop. Then using the bit-wise operator '&' with 0x7FFF in order to change the first bit to a 0.
+   This continues until we go through the size/2 of the array.
 */
 void loadhalfwdata (char mem[], int size)
 {
