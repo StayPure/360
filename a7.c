@@ -134,7 +134,7 @@ void loadbytedata (char mem[], int size)
 /* Design a module that takes in a char array and the size of 
    that array then fills that array with 15-bit, size/2 int values,
    that uses a random number generator. 
-   Itterating through the array using a *(short in *) to set 
+   Itterating through the array using a *(short int *) to set 
    the value using a random number generated in the for loop. 
    Then using the bit-wise operator '&' with 0x7FFF in order to 
    change the first bit to a 0. This continues until we go through
@@ -153,9 +153,9 @@ void loadhalfwdata (char mem[], int size)
 /* Design a module that fills up the memory array with
    random 31-bit, size / 4 int values using random number
    generator.
-   loops thorugh the memory array (mem[]) size times, with
+   Loops thorugh the memory array (mem[]) size times, with
    each interation adding 4 to i to match the byte size of
-   word (int). the actual value of mem[i] is set to a random
+   word (int). The actual value of mem[i] is set to a random
    value that has its sign bit removed with bitwise operations.
 */
 void loadworddata (char mem[], int size)
@@ -170,8 +170,8 @@ void loadworddata (char mem[], int size)
 /* Design a module that fills up the memory array with
    random 63-bit, size / 8 int values using random number
    generator.
-   loops through the memory array(mem[]) size times, with
-   each iteration adding 8 to i to match the byte size of
+   Loops through the memory array(mem[]) size times, with
+   each iteration adding 8 to i, to match the byte size of
    double-word (long long). The actual value of mem[i] is 
    set to a random value but becaues it's a long long it 
    needs two rand values to fill it out by filling out 
