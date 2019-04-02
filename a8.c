@@ -28,42 +28,30 @@ int getcount()
 
 int getdata(int data[], int nstudents)
 {
-    int j = 0, i = 0;
-    for (i = 0; i < nstudents; i++)
-    {  
-      scanf("%d %d %d", &data[j], &data[j + 1], &data[j + 2]);
-      if (data[j] == -1 || data[j + 1] == -1 || data[j + 2] == -1)
-      {
-          data[j] = 0; data[j + 1] = 0; data[j + 2] = 0; i--;
-          break;
-      }
-      j += 3;
-    }
-    return i;
+   int i = 0, j = 0;
+   int a, b, c;
+   for (i = 0; i < nstudents; i++)
+   {
+       scanf("%d %d %d", &a, &b, &c);
+       if (a == -1 || b == -1 || c == -1) break;
+       data[j] = a; data[j + 1] = b; data[j + 2] = c;
+       j += 3;
+   }
+   return i;
 }
 
 void procdata(int tscores[], int nstudents, int *lowmean, int *highmean, int *meanofmean)
 {
-    int mean[3], i, sum = 0;
-    for (i = 0; i < (nstudents * 3); i += 3) sum += tscores[i];
-    mean[0] = sum / nstudents; 
-    sum = 0;
-
-    for (i = 1; i < (nstudents * 3); i += 3) sum += tscores[i];
-    mean[1] = sum / nstudents; 
-    sum = 0;
-
-    for (i = 2; i < (nstudents * 3); i += 3) sum += tscores[i];
-    mean[2] = sum / nstudents;
-
-    *meanofmean = (mean[0] + mean[1] + mean[2]) / 3;
-    *lowmean = mean[0]; *highmean = mean[0];
-
-    for(i = 0; i < 3; i++)
-    {
-        if (*lowmean > mean[i]) *lowmean = mean[i];
-        if (*highmean < mean[i]) *highmean = mean[i];
-    }
+   int i, sum = 0, mean = 0;
+   *lowmean = 0; *highmean = 0;
+   for (i = 0; i < (nstudents * 3); i += 3)
+   {
+       mean = (tscores[i] + tscores[i + 1] + tscores[i + 2]) / 3;
+       sum += mean;
+       if (*lowmean > mean) *lowmean = mean;
+       if (*highmean < mean) *highmean = mean;
+   }
+   *meanofmean = sum / nstudents;
 }
 
 void printresults(char *label, int mlow, int mhigh, int mmean)
