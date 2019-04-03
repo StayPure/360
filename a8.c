@@ -53,7 +53,11 @@ int getdata(int data[], int nstudents)
    return i;
 }
 
-/*
+/*Design a module that takes in an array of test scores, number of students and the returns the lowest, highest,
+  and mean of means. Sum, mean, high mean, and low mean are declared and initalized to 0. Using a for loop to go
+  through each students exam scores, the average score for that student's exams are stored to the mean and added to
+  the overall sum. The mean is then compared to the highmean and lowmean and swaps are made accordingly. Nothing is
+  returned but highmean, lowmean, and meanofmean are stored at the end.
 */
 void procdata(int tscores[], int nstudents, int *lowmean, int *highmean, int *meanofmean)
 {
@@ -69,6 +73,9 @@ void procdata(int tscores[], int nstudents, int *lowmean, int *highmean, int *me
    *meanofmean = sum / nstudents;
 }
 
+/*Design a module that takes in a char *label, int mlow, int mhigh, and int mmean then prints their results. Using
+  printf() to stdout, formating conditions are used to print out each mean and label with it.
+*/
 void printresults(char *label, int mlow, int mhigh, int mmean)
 {
    fprintf(stdout, "\n%s:\n", label);
