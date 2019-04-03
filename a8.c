@@ -1,3 +1,35 @@
+/*
+        Name: Kevin C. Bell, Nicholas J. Bravata, Thomas J. Jury        Class: CPS 360
+        Section: 22362460                                               Assignment: 08
+        Due: April 3, 2019                                              Started: April 29, 2019
+        Credit: 10 points.
+        
+        Problem: Write a program that will read in exam1, exam2, exam3 scores of students of a class
+        from stdin. Then compute the integer mean of scores of a student. Finally it will print the
+        lowest mean, highest mean, and mean of the mean-scores of the class.
+        
+        Solution: When the program starts it first obtains from stdin the number of students. This number
+        is then used to make an array for test scores using malloc(), the size of the array is 3*nstudents
+        because each student can have 3 exams. After the array is made it is then passed to getdata(), once
+        there test scores are read in from stdin and stored into our scores array. The array is then passed
+        to procdata() along with nstudents, and pointers highmean, lowmean, meanofmean. This method will 
+        produce the mean of each student and calculate the meanofmean. The student with the lowest mean will
+        have their mean stored in lowmean and the student with the highest mean will be stored in highmean.
+        Finally the results will be printed using the method printresults(). The data will be printed with a 
+        meaningful message and label. Before ending the program uses free() on our scores then ends with an 
+        EXIT_SUCCESS.
+        
+        Data-structure used: A one-dimensional array of integers to store student test scores.
+        
+        Accessing functions for the data structure: Standard C functions for accessing arrays and 
+        malloc() to allocate the memory for the student's test scores array.
+        
+        Errors handled: 
+        
+        Limitations: 
+        
+        Acknowledgment:
+*/
 #include <stdlib.h>
 #include <stdio.h>
 
