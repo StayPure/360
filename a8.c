@@ -23,6 +23,9 @@ int main()
    exit(0);
 }
 
+/*Design a module that reads in from stdin using scanf().
+  That data that is read in is then returned as the count.
+*/
 int getcount()
 {
    int count;
@@ -30,6 +33,12 @@ int getcount()
    return count;
 }
 
+/*Design a module that fills an array d[] of size nstudents with student scores read in from stdin and
+  returns the count of students actually read in from stdin. Using the scanf() and '%d' 3 test scores 
+  are read in at a time and stored into d[] accordingly. Once the 3 tests are entered in a running count
+  is incremented up by one. Once i = nstudents or scanf() returns a -1 for one of the tests, the running 
+  count is returned.
+*/
 int getdata(int data[], int nstudents)
 {
    int i = 0, j = 0;
@@ -44,6 +53,8 @@ int getdata(int data[], int nstudents)
    return i;
 }
 
+/*
+*/
 void procdata(int tscores[], int nstudents, int *lowmean, int *highmean, int *meanofmean)
 {
    int i, sum = 0, mean = 0;
