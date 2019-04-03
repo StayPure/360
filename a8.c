@@ -3,27 +3,31 @@
 
 int main() 
 {
-    int getcount();
-    int getdata(int data[], int nstudents);
-    void procdata(int tscores[], int nstudents, int *lowmean, int *highmean, int *meanofmean);
-    void printresults(char *label, int mlow, int mhigh, int mmean);
-    extern void procdata1(int tscores[], int nstudents, int *lowmean, int *highmean, int *meanofmean);
-    int *scores, lowmean, highmean, meanofmean;
-    int num = getcount();
-    scores = (int *)malloc(sizeof(int) * (num * 3));
-    num = getdata(scores, num);
-    procdata(scores, num, &lowmean, &highmean, &meanofmean);
-    printresults("Procdata", lowmean, highmean, meanofmean);
-    procdata1(scores, num, &lowmean, &highmean, &meanofmean);
-    printresults("Procdata1", lowmean, highmean, meanofmean);
-    exit(0);
+   int getcount();
+   int getdata(int data[], int nstudents);
+   void printresults(char *label, int mlow, int mhigh, int mmean);
+   void procdata(int tscores[], int nstudents, int *lowmean, int *highmean, int *meanofmean);
+   extern void procdata1(int tscores[], int nstudents, int *lowmean, int *highmean, int *meanofmean);
+
+   int highmean, lowmean,  meanofmean, num = getcount(), *scores;
+
+   scores = (int *)malloc(sizeof(int) * (num * 3));
+   num = getdata(scores, num);
+
+   procdata(scores, num, &lowmean, &highmean, &meanofmean);
+   printresults("Procdata", lowmean, highmean, meanofmean);
+
+   procdata1(scores, num, &lowmean, &highmean, &meanofmean);
+   printresults("Procdata1", lowmean, highmean, meanofmean);
+
+   exit(0);
 }
 
 int getcount()
 {
-    int count;
-    scanf("%d", &count);
-    return count;
+   int count;
+   scanf("%d", &count);
+   return count;
 }
 
 int getdata(int data[], int nstudents)
@@ -56,8 +60,8 @@ void procdata(int tscores[], int nstudents, int *lowmean, int *highmean, int *me
 
 void printresults(char *label, int mlow, int mhigh, int mmean)
 {
-    fprintf(stdout, "\n%s:\n", label);
-    fprintf(stdout, "Highest Mean: %-5d\n", mhigh);
-    fprintf(stdout, "Mean of Means: %-5d\n", mmean);
-    fprintf(stdout, "Lowest Mean: %-5d\n\n", mlow);
+   fprintf(stdout, "\n%s:\n", label);
+   fprintf(stdout, "Lowest Mean score\t : %d\n", mlow);
+   fprintf(stdout, "Highest Mean score\t : %d\n", mhigh);
+   fprintf(stdout, "Mean of Means score\t : %d\n\n", mmean);
 }
