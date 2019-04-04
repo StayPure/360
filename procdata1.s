@@ -1,6 +1,6 @@
 /* Design a module that takes in an array of test scores, number of 
    students and then returns the lowest, highest, and mean of means 
-   using SPARC assembly.
+   using SPARC assembly language.
    Set L0 as the total sum of all the means, set L1 as the counter 
    for the main loop, set L2 as the current mean, set L3 to the lowest
    mean starting at 100 so its set to the first mean, set L4 to the 
