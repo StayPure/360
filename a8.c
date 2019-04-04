@@ -54,10 +54,10 @@ int main()
    num = getdata(scores, num);
 
    procdata(scores, num, &lowmean, &highmean, &meanofmean);
-   printresults("Procdata", lowmean, highmean, meanofmean);
+   printresults("Procdata produced", lowmean, highmean, meanofmean);
 
    procdata1(scores, num, &lowmean, &highmean, &meanofmean);
-   printresults("Procdata1", lowmean, highmean, meanofmean);
+   printresults("Procdata1 produced", lowmean, highmean, meanofmean);
 
    exit(0);
 }
@@ -134,7 +134,7 @@ void procdata(int tscores[], int nstudents, int *lowmean, int *highmean, int *me
 */
 void printresults(char *label, int mlow, int mhigh, int mmean)
 {
-   fprintf(stdout, "\n%s:\n", label);
+   fprintf(stdout, "\n%s:\n\n", label);
    fprintf(stdout, "Lowest Mean score\t : %d\n", mlow);
    fprintf(stdout, "Highest Mean score\t : %d\n", mhigh);
    fprintf(stdout, "Mean of Means score\t : %d\n\n", mmean);
