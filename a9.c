@@ -14,10 +14,10 @@ void usage(char *progname)
 }
 
 
-/* ANYONE */
+/* I done Did it, EZ CLAP - Nick*/
 void die(char *reason)
 {
-
+   printf("Reason for termination: %s\n", reason); exit(1);
 }
 
  
@@ -28,10 +28,28 @@ int getfilesize(char *path)
 }
 
 
-/* NICK */
+/*Design a module that loads an array mem[] with the contents of a executable file using system calls
+  open(), read(), and close(). Returns a 1 on success and a 0 otherwise. This method takes in a char
+  *path that is the intended file to be read in and stored in the unsigned char mem[] that is int size.
+  Using fd, file descriptor, to store the value returned by open(), if fd < 0 the method returns a 0 
+  stating no such file was opened. If open returns a non-zero integer the file descriptor is passed into
+  read() along with the mem[] to store too and the size of the array. The number of bits successfully read
+  in by read() is then stored to sz where it is used to add the terminating char to mem[]. Finally the fd 
+  is passed to close() and a 1 is returned.
+*/
 int loadimage(char *path, unsigned char mem[], int size)
 {
-
+   int sz, fd;
+   
+   fd = open(path, O_RDONLY);
+   if (fd < 0) {return 0;}
+   else{
+      sz = read(fd, mem, size);
+      mem[sz] = '\0';
+      close(fd);
+   }
+   
+   return 1;
 }
 
 
