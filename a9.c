@@ -18,10 +18,33 @@
 */
 #include <stdio.h>
 #include <stdlib.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
 
 int main(int argc, char *argv[])
 {
+   void die(char *reason);
+   int getfilesize(char *path);
+   int loadimage(char *path, unsigned char mem[], int size);
+   void mdump(unsigned char mem[], int size, int first, int last);
+   void usage(char *progname);
 
+   struct stat sbuf;
+   char *scheck = NULL, *echeck = NULL;
+   int end = strtol(argv[3], &echeck, 16), start = strtol(argv[2], &scheck, 16), size = 0;
+
+   if (argc < 4) usage("a9");
+   else if (stat(argv[1], &sbuf)) die("INPUT IS NOT A FILE!");
+   else if (scheck == argv[2]) die("START INDEX IS NOT A NUMBER");
+   else if (echeck == argv[3]) die("END INDEX IS NOT A NUMBER");
+   else if (!(size = getfilesize(argv[1]))) die("FILE IS EMPTY");
+
+   unsigned char *mem = (unsigned char*) malloc(size);
+   if (!loadimage(argv[1], mem, size)) die ("COULDN'T LOAD IMAGE"); 
+   mdump(mem, size, start, end);
+   
+   exit(0);
 }
 
 
@@ -38,7 +61,7 @@ void usage(char *progname)
 */
 void die(char *reason)
 {
-   printf("Reason for termination: %s\n", reason); exit(1);
+   fprintf(stderr, "Reason for termination: %s\n", reason); exit(1);
 }
 
  
@@ -77,22 +100,22 @@ int loadimage(char *path, unsigned char mem[], int size)
 /* KEVIN */
 void mdump(unsigned char mem[], int size, int first, int last)
 {
-   if (first < 0   ) first = 0; 
-   if (last  > size) last  = size;
+   if (first < 0) first = 0; 
+   if (last > size) last = size / 16;
 
    printf("Address   Words in Hexadecimal                 ASCII characters\n");
    printf("--------  -----------------------------------  ----------------\n");
    int i = 0, j = 0;
    for (i = first; i < last * 16; i += 16)
    {
-      printf("%08x ", i/16);  //Address
-      for (j = i; j < i + 16; j++) //Words
+      printf("%08x ", i / 16);  
+      for (j = i; j < i + 16; j++) 
       { 
          if (!(j & 3)) printf(" ");
          printf("%02x", mem[j]); 
       }
       printf("  ");
-      for (j = i; j < i + 16; j++) //ASCII
+      for (j = i; j < i + 16; j++)
       {
          if (mem[j] < 0x20 || mem[j] > 0x7e) printf(".");
          else printf("%c", mem[j]);
