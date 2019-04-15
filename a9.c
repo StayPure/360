@@ -1,3 +1,21 @@
+/*
+        Name: Kevin C. Bell, Nicholas J. Bravata, Thomas J. Jury        Class: CPS 360
+        Section: 22362460                                               Assignment: 09
+        Due: April 16, 2019                                             Started: April 11, 2019
+        Credit: 10 points.
+        
+        Problem: Write a well documented, complete C-program to produce a dump of a memory block in base-16 digits and in ASCII.
+        The program will load an executable-image into memory (simulated by dynamically allocated array of chars). It will produce
+        dump of memory locations from start-address to end-address. The file, start-address and end-address are specified on command
+        line. If the end-address is larger than the last memory location address, it will be adjusted to last location address.
+        Solution: 
+        Data-structure used: A one dimensional char arr mem[] used to store the contents of the executable-image.
+        Accessing functions for the data structure: 
+        Errors handled: 
+        Limitations: 
+        Acknowledgment: We wrote the program together but we had a lot of help from our classmates 
+        throughout the making of it.
+*/
 #include <stdio.h>
 #include <stdlib.h>
 
