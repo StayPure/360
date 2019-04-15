@@ -14,7 +14,10 @@ void usage(char *progname)
 }
 
 
-/* I done Did it, EZ CLAP - Nick*/
+/*Design a module that prints the reason of termination and terminates the program.
+  This module takes in a cahr *reason then uses printf() to format the char* with a
+  meaningful termination message. Fianlly the program is terminated using exit(1)
+*/
 void die(char *reason)
 {
    printf("Reason for termination: %s\n", reason); exit(1);
