@@ -42,7 +42,7 @@ void die(char *reason)
 }
 
  
- /* THOMAS */
+ /* THOMAS  */
 int getfilesize(char *path)
 {
 
