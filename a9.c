@@ -33,7 +33,7 @@
         and if it had a file and numbers. Also, checks if the file is empty or if the file could not
         be load onto the memory. Lastly, realigns the start and end points if they are out of bounds. 
 
-        Limitations: None?
+        Limitations: Only works on regular files. 
 
         Acknowledgment: We wrote the program together but we had a lot of help from our classmates 
         throughout the making of it.
@@ -100,26 +100,19 @@ void die(char *reason)
 }
 
 
-/*Design a module that obtains the size
- of the file in which you are given a path
- to find.
- This module takes in a char *path of which it
- then proceeds to find the size of the file
- using the stat function. Upon finding the size
- the module checks if the size is 0 if so it
- returns 0 if not however, it returns the size.
+/* Design a module that obtains the size of the file in which you are
+   given a path to find.
+   This module takes in a char *path of which it then proceeds to find
+   the size of the file using the stat function. Upon finding the size
+   the module checks if the size is 0 if so it returns 0 if not however,
+   it returns the size.
+   Called by main().
 */
 int getfilesize(char *path)
 {
-        long long size = stat1.st_size;
-        if(size == 0)
-        {
-                return 0;
-        }
-        else
-        {
-        return size;
-        }
+   struct stat sbuf;
+   if (stat(path, &sbuf)) return 0;
+   return sbuf.st_size;
 }
 
 
@@ -170,19 +163,23 @@ int loadimage(char *path, unsigned char mem[], int size)
 */
 void mdump(unsigned char mem[], int size, int first, int last)
 {
-   if (first < 0 || first > last) first = 0; 
+   if (first < 0 || first > last) first = 0;
    if (last > size || last < first) last = size / 16;
 
    printf("Address   Words in Hexadecimal                 ASCII characters\n");
    printf("--------  -----------------------------------  ----------------\n");
-   int i = 0, j = 0;
+   int i = 0, j = 0, k = 0;
    for (i = first; i < last * 16; i += 16)
    {
-      printf("%08x ", i / 16);  
-      for (j = i; j < i + 16; j++) 
-      { 
-         if (!(j & 3)) printf(" ");
-         printf("%02x", mem[j]); 
+      k = 0;
+      int addr = (unsigned long long) &mem[i];
+      printf("%08x ", addr);
+
+      for (j = i; j < i + 16; j++)
+      {
+         if (!(k & 3)) printf(" ");
+         printf("%02x", mem[j]);
+         k++;
       }
       printf("  ");
       for (j = i; j < i + 16; j++)
