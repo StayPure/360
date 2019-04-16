@@ -100,10 +100,26 @@ void die(char *reason)
 }
 
 
- /* THOMAS */
+/*Design a module that obtains the size
+ of the file in which you are given a path
+ to find.
+ This module takes in a char *path of which it
+ then proceeds to find the size of the file
+ using the stat function. Upon finding the size
+ the module checks if the size is 0 if so it
+ returns 0 if not however, it returns the size.
+*/
 int getfilesize(char *path)
 {
-
+        long long size = stat1.st_size;
+        if(size == 0)
+        {
+                return 0;
+        }
+        else
+        {
+        return size;
+        }
 }
 
 
