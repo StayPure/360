@@ -35,7 +35,13 @@ int main(int argc, char *argv[])
     exit(0);
 }
 
-
+/* Design a module that checks the arguments passed in by the user. 
+   This module checks to see if the number of args passed in is equal
+   to two. If the number of args is not equal to two, it is passed to 
+   usage() ending the program. It also checks to see if the args passed in
+   are both "fifo" and "random", if so it is passed to die() and the program is
+   terminated.
+*/
 void checkargs(int argc, char* argv[])
 {
     void die(char *reason);
@@ -52,24 +58,41 @@ void checkargs(int argc, char* argv[])
    ending the program afterwards.
    Takes progname and print out the correct usage of the program
    to stderr then exits the program with a failure.
-   Called by main().
+   Called by checkargs().
 */
 void usage(char *progname)
 {
     fprintf(stderr, "./%s <algo> < <inputfile>\n", progname); exit(1);
 }
 
-
+/* Design a module that prints out the reason for why the program was terminated
+   and then terminates the program. 
+   Takes in a char reason and then prints out that reason to stderr then exits the 
+   program.
+   Called by checkargs().
+*/
 void die(char *reason)
 {
     fprintf(stderr, "%s\n", reason); exit(1);
 }
 
+/* Design a module that prints out the results of the executed program.
+   Takes in a single parameter, char policy, and prints out the policy with
+   the number of references and misses executed during the program to stdout.
+   Called by main().
+*/
 void printrslts(char *policy)
 {
   fprintf(stdout, "%s:\t%d references, %d misses\n", policy, reference, miss);  
 }
 
+/* Design a module that finds out if the given reference is a hit in the cache.
+   Takes in a single perameter, a unsigned ref, and gets the index and tag. It 
+   then checks the cache index calculated from the reference and checks the cache
+   to see if the tag is located. If the tag is located and is valid a 1 is returned
+   otherwise a 0 is returned.
+   Called by processreffile().
+*/
 int isahit(unsigned ref){
     int indx = ((ref >> 6) & 0x3ff) << 2
         ,tag = (ref >> 16) & 0xffff
