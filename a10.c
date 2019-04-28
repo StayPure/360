@@ -10,19 +10,19 @@
         choosing a victim, these two options will be the random option and the first in first out
         option (FIFO). Random policy of choosing a victim is done by randomly selecting a cache
         line in a full set and replacing it with the new cache line. First in first out policy of
-        chosing a victim is done by selecting the oldest cache line in the set and replacing it with
-        the new cache line while also incrementing the ages of all the other cache lines in thet set
+        choosing a victim is done by selecting the oldest cache line in the set and replacing it with
+        the new cache line while also incrementing the ages of all the other cache lines in the set
         by 1.
 
         Solution: The program starts by checking the arguments given making sure they are correct if
         it is not correct the program will end giving the reason its did or just the usage of the
-        program. Once the arguments are checked the program intiates the cache and sets the victim
+        program. Once the arguments are checked the program initiates the cache and sets the victim
         picking policy. Once all this is done, the program process through each reference in the given
-        file and it places it into the cache choosing victims when necessary using the policy specifed
+        file and it places it into the cache choosing victims when necessary using the policy specified
         on start. After all the references have been added print the number of references cached and
         the number of misses all alongside the policy selected.
 
-        Data-structure used: A struct, cacheline which had elements age, valid, tag and an Array of
+        Data-structure used: A struct, cache line which had elements age, valid, tag and an Array of
         cache lines called l1 that acts as the overall cache.
 
         Accessing functions for the data structure: Standard C functions for accessing arrays.
@@ -139,7 +139,7 @@ void printrslts(char *policy)
 
 /* Design a module that finds out if the given reference is a hit in
    the cache.
-   Takes in a single perameter, a unsigned ref, and gets the index
+   Takes in a single parameter, a unsigned ref, and gets the index
    and tag. It then checks the cache index calculated from the reference
    and checks the cache to see if the tag is located. If the tag is
    located and is valid a 1 is returned otherwise a 0 is returned.
@@ -156,7 +156,7 @@ int isahit(unsigned ref)
 }
 
 
-/* Design a module that iniaties the cache array full of empty cache
+/* Design a module that initiates the cache array full of empty cache
    lines.
    Goes through each index in the main cache array and adds a cache
    line with 0 age, a 0 tag, and mark it as non-valid. The main purpose
@@ -181,7 +181,7 @@ void initcache(void)
 /* Design a module that processes a references and stores it into the
    cache.
    This module takes in 2 parameters, a unsigned ref and cache new which
-   is a cacheline. It obtains a tag from the ref and assigns it to the
+   is a cache line. It obtains a tag from the ref and assigns it to the
    cache that was passed to it.
    Called by processreffile().
 */
@@ -196,7 +196,7 @@ void processref(unsigned ref, cache *new)
 
 /* Design a module that checks for empty cache lines in a set and
    replaces them with a given cache line.
-   Goes through each cacheline in the specified set checking for empty
+   Goes through each cache line in the specified set checking for empty
    slots if there are no empty slots it returns a 0 if it has a empty
    it fills it with the given cache line and return 1 indicating it was
    filled.
@@ -221,7 +221,7 @@ int emptyfiller(int indx, cache *line)
    specified line.
    The given reference is parsed to find the set index the set is
    checked for empties and if there is it will occupy that space if not
-   however then a victim will be choosen by random and the input
+   however then a victim will be chosen by random and the input
    reference takes that spot.
    Called by processreffile().
 */
@@ -243,8 +243,8 @@ void randomalgo(cache *line, unsigned ref)
    cache line's ages by one.
    The given reference is parsed to find the set index the set is
    checked for empties and if there is it will occupy that space if
-   not however then a victim will be choosen by first finding the
-   oldest cacheline and replace with the new line and increment the
+   not however then a victim will be chosen by first finding the
+   oldest cache line and replace with the new line and increment the
    ages for all the other cache lines in the set.
    Called by processreffile().
 */
@@ -283,9 +283,9 @@ void fifoalgo(cache *line, unsigned ref)
    An integer for the next references is created and is used to hold
    the next reference and is put through scanf() to check if there is
    a next reference and if so use it. For each reference the counter
-   referece is incremented then it checks if it is a hit. if not the
+   reference is incremented then it checks if it is a hit. if not the
    miss counter is incremented and the reference is processed then put
-   through the specifed policy.
+   through the specified policy.
    Called by main().
 */
 void processreffile(int policy)
