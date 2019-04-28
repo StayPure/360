@@ -1,3 +1,19 @@
+/*
+        Name: Kevin C. Bell, Nicholas J. Bravata, Thomas J. Jury        Class: CPS 360
+        Section: 22362460                                               Assignment: 10
+        Due: April 24, 2019                                             Started: April 20, 2019
+        Credit: 10 points.
+        Problem: Design a program that implements a 4 way associative cache.
+        Solution: 
+        Data-structure used: A struct, cacheline which had elements age, valid, tag. Another struct cache 
+        which is an array size set * lines.
+        Accessing functions for the data structure: Basic array indexing.
+        Errors handled: Checks the arguments for the correct amount, if it was either random or fifo.
+        Limitations: 
+        Acknowledgment: We wrote the program together but we had a lot of help from our classmates
+        throughout the making of it.
+*/
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -114,7 +130,11 @@ void initcache(void)
     }
 }
 
-
+/* Design a module that processes a references and stores it into the cache.
+   This module takes in 2 parameters, a unsigned ref and cache new which is a cacheline.
+   It obtains a tag from the ref and assigns it to the cache that was passed to it.
+   Called by processreffile().
+*/
 void processref(unsigned ref, cache *new)
 {
     int tag = (ref >> 16) & 0xffff;
